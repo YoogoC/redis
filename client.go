@@ -1,8 +1,9 @@
 package redis
 
 import (
-	"github.com/redis-go/redcon"
 	"sync"
+
+	"github.com/redis-go/redcon"
 )
 
 // TODO Client flags
@@ -97,7 +98,7 @@ func (c *Client) Db() *RedisDb {
 
 // Disconnects and removes a Client.
 func (c *Client) FreeClient() {
-	c.Conn().Close() // TODO should we log on error?
+	_ = c.Conn().Close() // TODO should we log on error?
 	c.Mu().Lock()
 	defer c.Mu().Unlock()
 	delete(c.Redis().getClients(), c.ClientId())

@@ -8,5 +8,5 @@ import (
 
 func main() {
 	log.Println("Work in Progress version")
-	log.Fatal(redis.Run(":6379"))
+	log.Fatal(redis.Run(":6380"))
 }

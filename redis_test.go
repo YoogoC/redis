@@ -1,22 +1,25 @@
 package redis
 
 import (
-	"github.com/go-redis/redis"
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/go-redis/redis"
+	"github.com/stretchr/testify/assert"
 )
 
 // redis server
 var r = Default()
 
+var addr = ":6380"
+
 // redis client
 var c = redis.NewClient(&redis.Options{
-	Addr: ":6379",
+	Addr: addr,
 })
 
 func init() {
-	go r.Run(":6379")
+	go r.Run(addr)
 }
 
 func TestPingCommand(t *testing.T) {
@@ -25,7 +28,7 @@ func TestPingCommand(t *testing.T) {
 	assert.NoError(t, err)
 
 	pingCmd := redis.NewStringCmd("ping", "Hello,", "redis server!")
-	c.Process(pingCmd)
+	_ = c.Process(pingCmd)
 	s, err = pingCmd.Result()
 	assert.Equal(t, "Hello, redis server!", s)
 	assert.NoError(t, err)
@@ -92,4 +95,18 @@ func TestExpiry(t *testing.T) {
 	s, err = c.Get("x").Result()
 	assert.Equal(t, "", s)
 	assert.Error(t, err)
+}
+
+func TestSAddCommand(t *testing.T) {
+	s, err := c.SAdd("k1", "1x", "2x", "3x").Result()
+	assert.Equal(t, int64(3), s)
+	assert.NoError(t, err)
+
+	s, err = c.SAdd("k2", 1, 2, 3).Result()
+	assert.Equal(t, int64(3), s)
+	assert.NoError(t, err)
+
+	s, err = c.SAdd("k3", "1x", "1x", "3x").Result()
+	assert.Equal(t, int64(2), s)
+	assert.NoError(t, err)
 }

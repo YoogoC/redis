@@ -1,9 +1,10 @@
 package redis
 
 import (
-	"github.com/redis-go/redcon"
 	"strings"
 	"sync"
+
+	"github.com/redis-go/redcon"
 )
 
 const (
@@ -139,11 +140,11 @@ func Default() *Redis {
 func createDefault() *Redis {
 	// initialize default redis server
 	r := &Redis{
-		mu: new(sync.RWMutex),
-		accept: func(c *Client) bool {
-			return true
-		},
-		onClose: func(c *Client, err error) {
+		redisDbs: map[DatabaseId]*RedisDb{},
+		mu:       new(sync.RWMutex),
+		commands: make(Commands),
+		unknownCommand: func(c *Client, cmd redcon.Command) {
+			c.Conn().WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
 		},
 		handler: func(c *Client, cmd redcon.Command) {
 			cmdl := strings.ToLower(string(cmd.Args[0]))
@@ -153,10 +154,14 @@ func createDefault() *Redis {
 				c.Redis().UnknownCommandFn()(c, cmd)
 			}
 		},
-		unknownCommand: func(c *Client, cmd redcon.Command) {
-			c.Conn().WriteError("ERR unknown command '" + string(cmd.Args[0]) + "'")
+		accept: func(c *Client) bool {
+			return true
 		},
-		commands: make(Commands, 0),
+		onClose: func(c *Client, err error) {
+		},
+		keyExpirer:   nil,
+		clients:      map[ClientId]*Client{},
+		nextClientId: 0,
 	}
 	r.redisDbs = make(RedisDbs, redisDbMapSizeDefault)
 	r.RedisDb(0) // initializes default db 0
@@ -174,6 +179,7 @@ func createDefault() *Redis {
 		NewCommand("lpop", LPopCommand, CMD_WRITE, CMD_FAST),
 		NewCommand("rpop", RPopCommand, CMD_WRITE, CMD_FAST),
 		NewCommand("lrange", LRangeCommand, CMD_READONLY),
+		NewCommand("sadd", SAddCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
 	})
 	return r
 }
