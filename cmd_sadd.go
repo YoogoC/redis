@@ -27,7 +27,6 @@ func SAddCommand(c *Client, cmd redcon.Command) {
 
 	s, ok := i.(*Set)
 	if !ok {
-
 		c.Conn().WriteError("sadd error!")
 		return
 	}
