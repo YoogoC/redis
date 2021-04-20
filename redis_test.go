@@ -49,12 +49,15 @@ func TestSetCommand(t *testing.T) {
 }
 
 func TestGetCommand(t *testing.T) {
+	_, _ = c.Set("k", "v", 0).Result()
 	s, err := c.Get("k").Result()
 	assert.Equal(t, "v", s)
 	assert.NoError(t, err)
 }
 
 func TestDelCommand(t *testing.T) {
+	_, _ = c.Set("k", "v", 0).Result()
+	_, _ = c.Set("k3", "v", 1*time.Hour).Result()
 	i, err := c.Del("k", "k3").Result()
 	assert.Equal(t, i, int64(2))
 	assert.NoError(t, err)
