@@ -28,9 +28,6 @@ github.com/redis-go/redcon
 # github.com/stretchr/testify v1.5.1
 ## explicit
 github.com/stretchr/testify/assert
-# github.com/willf/bitset v1.1.11
-## explicit
-github.com/willf/bitset
 # golang.org/x/sys v0.0.0-20210419170143-37df388d1f33
 ## explicit
 # gopkg.in/yaml.v2 v2.4.0
