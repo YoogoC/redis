@@ -10,6 +10,8 @@
 This project started to see how easy it is to implement a full Redis clone in Go.
 As one of the side effects, imagine you could write redis modules in Go, that would be awesome!
 
+> redis can production, redis-go can study golang, redis, c and so on
+
 # Get involved!
 This project is in *work-in-progress*, so share ideas, code and have fun.
 
