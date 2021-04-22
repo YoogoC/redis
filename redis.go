@@ -179,7 +179,9 @@ func createDefault() *Redis {
 		NewCommand("lpop", LPopCommand, CMD_WRITE, CMD_FAST),
 		NewCommand("rpop", RPopCommand, CMD_WRITE, CMD_FAST),
 		NewCommand("lrange", LRangeCommand, CMD_READONLY),
+
 		NewCommand("sadd", SAddCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		NewCommand("srem", SRemCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
 	})
 	return r
 }

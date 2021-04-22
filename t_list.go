@@ -2,6 +2,7 @@ package redis
 
 import (
 	"container/list"
+
 	"github.com/pkg/errors"
 )
 

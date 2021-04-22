@@ -1,8 +1,9 @@
 package redis
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestLPushCommand(t *testing.T) {
@@ -22,7 +23,7 @@ func TestLPushCommand(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, int64(2), i)
 
-	i, err = c.LPush("lpush3key").Result()
+	_, err = c.LPush("lpush3key").Result()
 	assert.Error(t, err)
 }
 

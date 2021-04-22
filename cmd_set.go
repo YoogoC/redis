@@ -62,9 +62,9 @@ func SetCommand(c *Client, cmd redcon.Command) {
 					c.Conn().WriteError("ERR invalid expire time in set: cannot be 0")
 					return
 				}
+				i++
 				expire = time.Now().Add(time.Duration(i * uint64(time.Second)))
 				yesExpire, isEX = true, true
-				i++
 				continue
 			case "px":
 				if isEX { // is already ex
@@ -89,9 +89,9 @@ func SetCommand(c *Client, cmd redcon.Command) {
 					c.Conn().WriteError("ERR invalid expire time in set: cannot be 0")
 					return
 				}
+				i++
 				expire = time.Now().Add(time.Duration(i * uint64(time.Millisecond)))
 				yesExpire, isPX = true, true
-				i++
 				continue
 			case "nx":
 				if XX { // is already xx

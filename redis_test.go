@@ -18,8 +18,15 @@ var c = redis.NewClient(&redis.Options{
 	Addr: addr,
 })
 
+func run() {
+	err := r.Run(addr)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func init() {
-	go r.Run(addr)
+	go run()
 }
 
 func TestPingCommand(t *testing.T) {
@@ -111,5 +118,23 @@ func TestSAddCommand(t *testing.T) {
 
 	s, err = c.SAdd("k3", "1x", "1x", "3x").Result()
 	assert.Equal(t, int64(2), s)
+	assert.NoError(t, err)
+}
+
+func TestSRemCommand(t *testing.T) {
+
+	_, _ = c.SAdd("k1", "1x", "2x", "3x").Result()
+	s, err := c.SRem("k1", "1x", "2x", "3x").Result()
+	assert.Equal(t, int64(3), s)
+	assert.NoError(t, err)
+
+	_, _ = c.SAdd("k2", 1, 2, 3).Result()
+	s, err = c.SRem("k2", 1, 2).Result()
+	assert.Equal(t, int64(2), s)
+	assert.NoError(t, err)
+
+	_, _ = c.SAdd("k3", "1x", "1x", "3x").Result()
+	s, err = c.SRem("k3", "1x", "1x", "4x").Result()
+	assert.Equal(t, int64(1), s)
 	assert.NoError(t, err)
 }
