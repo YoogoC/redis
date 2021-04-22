@@ -48,3 +48,7 @@ func (s *Set) Remove(value string) bool {
 	}
 	return false
 }
+
+func (s *Set) Equal(other *Set) bool {
+	return s.goSet.Equal(other.goSet)
+}

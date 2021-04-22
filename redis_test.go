@@ -138,3 +138,24 @@ func TestSRemCommand(t *testing.T) {
 	assert.Equal(t, int64(1), s)
 	assert.NoError(t, err)
 }
+
+func TestSMoveCommand(t *testing.T) {
+
+	_, _ = c.SAdd("k1", "1x", "2x", "3x").Result()
+	s, err := c.SMove("k1", "k11", "1x").Result()
+	assert.Equal(t, true, s)
+	assert.NoError(t, err)
+
+	_, _ = c.SAdd("k2", "1x", "2x", "3x").Result()
+	_, _ = c.SAdd("k3", "4x", "5x", "6x").Result()
+	s, err = c.SMove("k2", "k3", "3x").Result()
+	assert.Equal(t, true, s)
+	assert.NoError(t, err)
+
+	_, _ = c.SAdd("k4", "1x", "2x", "3x").Result()
+	_, _ = c.SAdd("k5", "4x", "5x", "6x").Result()
+	s, err = c.SMove("k4", "k5", "4x").Result()
+	assert.Equal(t, false, s)
+	assert.NoError(t, err)
+
+}
