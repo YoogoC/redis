@@ -18,6 +18,7 @@ func SRemCommand(c *Client, cmd redcon.Command) {
 	i := db.GetOrExpire(&key, true)
 	if i == nil {
 		c.Conn().WriteNull()
+		return
 	} else if i.Type() != SetType {
 		c.Conn().WriteError(fmt.Sprintf("%s: key is a %s not a %s", WrongTypeErr, i.TypeFancy(), SetTypeFancy))
 		return

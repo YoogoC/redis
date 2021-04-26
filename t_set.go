@@ -52,3 +52,7 @@ func (s *Set) Remove(value string) bool {
 func (s *Set) Equal(other *Set) bool {
 	return s.goSet.Equal(other.goSet)
 }
+
+func (s *Set) Iter() <-chan interface{} {
+	return s.goSet.Iter()
+}

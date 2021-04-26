@@ -159,3 +159,15 @@ func TestSMoveCommand(t *testing.T) {
 	assert.NoError(t, err)
 
 }
+
+func TestSMembersCommand(t *testing.T) {
+
+	_, _ = c.SAdd("k1", "1x", "2x", "3x").Result()
+	s, err := c.SMembers("k1").Result()
+	assert.Equal(t, 3, len(s))
+	assert.NoError(t, err)
+
+	s, err = c.SMembers("k2").Result()
+	assert.Equal(t, 0, len(s))
+	assert.NoError(t, err)
+}
