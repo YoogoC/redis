@@ -186,6 +186,7 @@ func createDefault() *Redis {
 		NewCommand("smembers", SMembersCommand, CMD_READONLY, CMD_FAST),
 		NewCommand("sismember", SIsMembersCommand, CMD_READONLY, CMD_FAST),
 		NewCommand("scard", SCard, CMD_READONLY, CMD_FAST),
+		NewCommand("spop", SPopCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
 	})
 	return r
 }

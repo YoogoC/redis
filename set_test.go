@@ -98,3 +98,14 @@ func TestSCardCommand(t *testing.T) {
 	assert.Equal(t, int64(0), s)
 	assert.NoError(t, err)
 }
+
+func TestSPopCommand(t *testing.T) {
+	_, _ = c.SAdd(ctx, "k1", "1x").Result()
+	s, err := c.SPop(ctx, "k1").Result()
+	assert.Equal(t, "1x", s)
+	assert.NoError(t, err)
+
+	s, err = c.SPop(ctx, "k2").Result()
+	assert.Equal(t, "", s)
+	assert.NoError(t, err)
+}

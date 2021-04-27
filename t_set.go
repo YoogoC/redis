@@ -60,3 +60,7 @@ func (s *Set) Iter() <-chan interface{} {
 func (s *Set) Contains(i ...interface{}) bool {
 	return s.goSet.Contains(i...)
 }
+
+func (s *Set) Pop() interface{} {
+	return s.goSet.Pop()
+}
