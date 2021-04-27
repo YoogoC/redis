@@ -86,3 +86,15 @@ func TestSisMemberCommand(t *testing.T) {
 	assert.Equal(t, false, s)
 	assert.NoError(t, err)
 }
+
+func TestSCardCommand(t *testing.T) {
+
+	_, _ = c.SAdd(ctx, "k1", "1x", "2x", "3x").Result()
+	s, err := c.SCard(ctx, "k1").Result()
+	assert.Equal(t, int64(3), s)
+	assert.NoError(t, err)
+
+	s, err = c.SCard(ctx, "k2").Result()
+	assert.Equal(t, int64(0), s)
+	assert.NoError(t, err)
+}
