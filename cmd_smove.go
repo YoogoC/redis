@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/redis-go/redcon"
+	"github.com/tidwall/redcon"
 )
 
 func SMoveCommand(c *Client, cmd redcon.Command) {

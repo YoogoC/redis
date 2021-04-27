@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/redis-go/redcon"
+	"github.com/tidwall/redcon"
 )
 
 // SET key value [NX] [XX] [EX <seconds>] [PX <milliseconds>]

@@ -3,7 +3,7 @@ package redis
 import (
 	"fmt"
 
-	"github.com/redis-go/redcon"
+	"github.com/tidwall/redcon"
 )
 
 func SIsMembersCommand(c *Client, cmd redcon.Command) {

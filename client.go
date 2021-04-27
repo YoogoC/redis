@@ -3,7 +3,7 @@ package redis
 import (
 	"sync"
 
-	"github.com/redis-go/redcon"
+	"github.com/tidwall/redcon"
 )
 
 // TODO Client flags

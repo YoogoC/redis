@@ -2,7 +2,8 @@ package redis
 
 import (
 	"bytes"
-	"github.com/redis-go/redcon"
+
+	"github.com/tidwall/redcon"
 )
 
 func PingCommand(c *Client, cmd redcon.Command) {
