@@ -56,3 +56,7 @@ func (s *Set) Equal(other *Set) bool {
 func (s *Set) Iter() <-chan interface{} {
 	return s.goSet.Iter()
 }
+
+func (s *Set) Contains(i ...interface{}) bool {
+	return s.goSet.Contains(i...)
+}
