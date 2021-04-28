@@ -109,3 +109,11 @@ func TestSPopCommand(t *testing.T) {
 	assert.Equal(t, "", s)
 	assert.NoError(t, err)
 }
+
+func TestSRandMemberCommand(t *testing.T) {
+	_, _ = c.SAdd(ctx, "k1", "1x").Result()
+	s, err := c.SRandMember(ctx, "k1").Result()
+	assert.Equal(t, "1x", s)
+	assert.NoError(t, err)
+
+}

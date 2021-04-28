@@ -187,6 +187,14 @@ func createDefault() *Redis {
 		NewCommand("sismember", SIsMembersCommand, CMD_READONLY, CMD_FAST),
 		NewCommand("scard", SCard, CMD_READONLY, CMD_FAST),
 		NewCommand("spop", SPopCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		NewCommand("srandmember", SRandMemberCommand, CMD_READONLY, CMD_FAST),
+		// NewCommand("sinter", SInterCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		// NewCommand("sinterstore", SInterStoreCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		// NewCommand("sunion", SUnionCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		// NewCommand("sunionstore", SUnionStoreCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		// NewCommand("sdiff", SDiffCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		// NewCommand("sdiffstore", SDiffStoreCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
+		// NewCommand("sscan", SScanCommand, CMD_WRITE, CMD_FAST, CMD_DENYOOM),
 	})
 	return r
 }

@@ -1,9 +1,8 @@
 package redis
 
 import (
-	"bytes"
-	"encoding/binary"
 	"fmt"
+	"strconv"
 
 	"github.com/tidwall/redcon"
 )
@@ -33,11 +32,11 @@ func SPopCommand(c *Client, cmd redcon.Command) {
 		return
 	}
 
-	needRemoveLen := int64(1)
+	needRemoveLen := 1
 	if len(cmd.Args) > 2 {
-		slen := int64(s.Len())
+		slen := s.Len()
 
-		psize, err := binary.ReadVarint(bytes.NewBuffer(cmd.Args[2]))
+		psize, err := strconv.Atoi(string(cmd.Args[2]))
 		if err != nil {
 			c.Conn().WriteError("spop count argument error!")
 			return

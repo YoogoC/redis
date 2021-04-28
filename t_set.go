@@ -64,3 +64,7 @@ func (s *Set) Contains(i ...interface{}) bool {
 func (s *Set) Pop() interface{} {
 	return s.goSet.Pop()
 }
+
+func (s *Set) GetOne() interface{} {
+	return <-s.goSet.Iter()
+}
